@@ -51,6 +51,6 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:.
         xvfb-run pytest tests/
     - name: Run slow tests
-      run: make test-slowest
+      run: xvfb-run make test-slowest
     - name: Run coverage
-      run: make coverage
+      run: xvfb-run make coverage
