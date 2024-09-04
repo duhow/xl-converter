@@ -3,12 +3,14 @@ name: Test
 on:
   push:
     branches:
+      - unstable
+      - stable
 
   pull_request:
 
 jobs:
   test:
-    name: Run
+    name: Test
     runs-on: ubuntu-24.04
     env:
       PYTHON_VERSION: '3.11'
