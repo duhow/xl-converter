@@ -10,16 +10,14 @@ jobs:
   test:
     name: Run
     runs-on: ubuntu-24.04
-    container:
-      image: ubuntu:24.10
     env:
       PYTHON_VERSION: '3.11'
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
       run: |
-        apt update
-        apt install -y \
+        sudo apt update
+        sudo apt install -y \
           git make curl fuse p7zip-full sudo \
           '^libxcb.*-dev' libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev \
           libxfixes-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev \
@@ -49,9 +47,9 @@ jobs:
           ln -sv $(command -v $TOOL) ${TARGET}
         done
     - name: Run tests
-      uses: coactions/setup-xvfb@v1
-      with:
-        run: export PYTHONPATH=$PYTHONPATH:. && pytest tests/
+      run: |
+        export PYTHONPATH=$PYTHONPATH:.
+        xvfb-run pytest tests/
     - name: Run slow tests
       run: make test-slowest
     - name: Run coverage
