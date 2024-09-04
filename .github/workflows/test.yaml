@@ -14,8 +14,12 @@ jobs:
       PYTHON_VERSION: '3.11'
     steps:
     - uses: actions/checkout@v4
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt/archives/*.deb
+        key: ${{ runner.os }}-deps
     - name: Install dependencies
-      if: false
       run: |
         sudo apt update
         sudo apt install -y \
@@ -24,13 +28,6 @@ jobs:
           libxfixes-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev \
           wget build-essential libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev \
           libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev liblzma-dev \
-          libegl1 libjxl-tools libavif-bin imagemagick libimage-exiftool-perl \
-          x11-utils libxkbcommon-x11-0
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install --no-install-recommends -y \
-          git make curl fuse p7zip-full sudo \
           libegl1 libjxl-tools libavif-bin imagemagick libimage-exiftool-perl \
           x11-utils libxkbcommon-x11-0 \
           qt6-base-dev qt6-tools-dev
