@@ -32,7 +32,8 @@ jobs:
         sudo apt install --no-install-recommends -y \
           git make curl fuse p7zip-full sudo \
           libegl1 libjxl-tools libavif-bin imagemagick libimage-exiftool-perl \
-          x11-utils libxkbcommon-x11-0
+          x11-utils libxkbcommon-x11-0 \
+          qt6-base-dev qt6-tools-dev
     - uses: getsentry/action-setup-venv@v2.1.0
       with:
         python-version: ${{ env.PYTHON_VERSION }}
