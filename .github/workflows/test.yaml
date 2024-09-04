@@ -12,6 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          git make curl fuse p7z-full \
+          '^libxcb.*-dev' libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev \
+          libxfixes-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev \
+          wget build-essential libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev \
+          libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev liblzma-dev
     - uses: getsentry/action-setup-venv@v2.1.0
       with:
         python-version: '3.11'
