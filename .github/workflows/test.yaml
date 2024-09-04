@@ -12,12 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
+    - uses: getsentry/action-setup-venv@v2.1.0
       with:
         python-version: '3.12'
-    - run: |
-        make venv-dev
-        source env_dev/bin/activate
+        cache-dependency-path: |
+          requirements.txt
+          requirements_test.txt
+        install-cmd: pip install -r requirements.txt -r requirements_test.txt
     - name: Run tests
       run: pytest tests/
     - name: Run slow tests
