@@ -35,7 +35,7 @@ jobs:
         install-cmd: pip install -r requirements.txt -r requirements_test.txt
     - name: Link tools
       env:
-        TOOLS: cjxl djxl jxlinfo avifenc avifdec magick
+        TOOLS: cjxl djxl jxlinfo avifenc avifdec
         TARGET: bin/linux
       run: |
         mkdir -p ${TARGET}
