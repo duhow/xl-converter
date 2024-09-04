@@ -15,8 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
-      uses: daaku/gh-action-apt-install@v4
-      with:
+      run: |
+        sudo apt update
+        sudo apt install -y ${packages}
+      env:
         packages: >
           git make curl fuse p7zip-full sudo
           '^libxcb.*-dev' libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev
@@ -26,6 +28,7 @@ jobs:
           libegl1 libjxl-tools libavif-bin imagemagick libimage-exiftool-perl
           x11-utils libxkbcommon-x11-0
           qt6-base-dev qt6-tools-dev
+
     - name: Install Python dependencies to venv
       uses: getsentry/action-setup-venv@v2.1.0
       with:
@@ -34,6 +37,7 @@ jobs:
           requirements.txt
           requirements_test.txt
         install-cmd: pip install -r requirements.txt -r requirements_test.txt
+
     - name: Link tools
       env:
         TOOLS: cjxl djxl jxlinfo avifenc avifdec
@@ -48,6 +52,7 @@ jobs:
           fi
           ln -sv $(command -v $TOOL) ${TARGET}
         done
+
     - name: Run tests
       run: |
         export PYTHONPATH=$PYTHONPATH:.
