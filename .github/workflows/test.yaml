@@ -42,7 +42,6 @@ jobs:
           requirements_test.txt
         install-cmd: pip install -r requirements.txt -r requirements_test.txt
     - name: Link tools
-      if: false
       env:
         TOOLS: cjxl djxl jxlinfo avifenc avifdec
         TARGET: bin/linux
